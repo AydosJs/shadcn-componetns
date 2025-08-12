@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
@@ -17,13 +17,23 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useForm } from "react-hook-form";
 
+// Define the form values type
+interface FormValues {
+  username: string;
+  email: string;
+  message: string;
+  category: string;
+  notifications: boolean;
+  theme: string;
+}
+
 export default function Home() {
   const [formData, setFormData] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [notifications, setNotifications] = useState(false);
   const [theme, setTheme] = useState("light");
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     defaultValues: {
       username: "",
       email: "",
@@ -34,7 +44,7 @@ export default function Home() {
     },
   });
 
-  function onSubmit(values: any) {
+  function onSubmit(values: FormValues) {
     setFormData(JSON.stringify(values, null, 2));
   }
 
@@ -395,7 +405,7 @@ export default function Home() {
                       <DialogHeader>
                         <DialogTitle className="text-sm sm:text-base">Edit Profile</DialogTitle>
                         <DialogDescription className="text-xs sm:text-sm">
-                          Make changes to your profile here. Click save when you're done.
+                          Make changes to your profile here. Click save when you&apos;re done.
                         </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
@@ -476,7 +486,7 @@ export default function Home() {
                     <Label htmlFor="email-label" className="text-xs sm:text-sm">Email address</Label>
                     <Input id="email-label" type="email" placeholder="m@example.com" className="text-xs sm:text-sm" />
                     <p className="text-xs sm:text-sm text-slate-500">
-                      We'll never share your email with anyone else.
+                      We&apos;ll never share your email with anyone else.
                     </p>
                   </div>
                 </CardContent>
